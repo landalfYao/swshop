@@ -38,4 +38,22 @@ page{font-size: 28rpx; background-color: #f7f7f7; color: #333;}
 .index-con navigator{width: 82rpx; height: 100rpx;position: absolute;bottom: 0;left: 0}
 .index-con .index-area{display:inline-block;top:88rpx;left:0px;position:relative;height: 600rpx;width:82rpx;}
 
-
+.icon-35{
+  width:35rpx;
+  height: 35rpx
+}
+.icon-30{
+  width:30rpx;
+  height: 30rpx
+}
+.icon-40{
+  width:40rpx;
+  height: 40rpx
+}
+.icon-50{
+  width:50rpx;
+  height: 50rpx
+}
+.ma-r20{
+  margin-right: 20rpx
+}

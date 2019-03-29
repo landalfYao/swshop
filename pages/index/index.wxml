@@ -26,9 +26,8 @@
 <!-- 精品推荐 -->
 <view class='new-product'>
   <view class='title-bar' bindtap='torday' >
-    <view class='iconfont icon-jingpintuijian'></view>
+    <image src='/images/jp.png' class='icon-40 ma-r20'></image>
     <text>精品推荐</text>
-    <navigator hover-class="none" class='flex'><text>更多推荐</text><text class='iconfont icon-xiala'></text></navigator>
   </view>
   <view class='scroll-product'>
     <scroll-view class="scroll-view_x" scroll-x style="width: auto;overflow:hidden;">
@@ -49,9 +48,8 @@
 <!-- 首发新品 -->
 <view class='today-new'>
   <view class='title-bar' bindtap='torday'>
-    <view class='iconfont icon-shangxinfuwu'></view>
+    <image src='/images/newp.png' class='icon-40 ma-r20'></image>
     <text>首发新品</text>
-    <navigator hover-class="none" bindtap='torday' class='flex'><text>更多新品</text><text class='iconfont icon-xiala'></text></navigator>
   </view>
   <view class='new-pro-wrapper'>
     <block wx:for="{{newList}}">
@@ -70,9 +68,9 @@
 <!-- 热卖单品 -->
 <view class='new-product2'>
   <view class='title-bar' bindtap='torday' >
-    <view class='iconfont icon-jingpintuijian'></view>
+    <image src='/images/hot.png' class='icon-40 ma-r20'></image>
     <text>热卖单品</text>
-    <navigator hover-class="none" class='flex'><text>更多推荐</text><text class='iconfont icon-xiala'></text></navigator>
+    
   </view>
   <view class='scroll-product2'>
     <scroll-view class="scroll-view_x" scroll-x style="width: auto;overflow:hidden;">
@@ -95,7 +93,6 @@
   <view class='title-bar' bindtap='torday'>
     <view class='iconfont icon-shangxinfuwu'></view>
     <text>促销单品</text>
-    <navigator hover-class="none" bindtap='torday' class='flex'><text>更多新品</text><text class='iconfont icon-xiala'></text></navigator>
   </view>
   <view class='new-pro-wrapper2'>
     <block wx:for="{{benefitList}}">
