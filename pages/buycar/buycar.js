@@ -211,11 +211,7 @@ Page({
       header: header,
       success: function (res) {
         if (res.data.code == 200) {
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 2000
-          })
+          
         } else {
           wx.showToast({
             title: res.data.msg,

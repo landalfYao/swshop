@@ -57,3 +57,15 @@ page{font-size: 28rpx; background-color: #f7f7f7; color: #333;}
 .ma-r20{
   margin-right: 20rpx
 }
+.text-center{
+  text-align: center;
+}
+.fo-g{
+  color: #888
+}
+.ma-t10{
+  margin-top:10rpx
+}
+.pa-t150{
+  padding-top:150rpx
+}

@@ -29,6 +29,12 @@
       </view>
     </block>
   </view>
+  <!-- 购物车为空 -->
+  <view class='text-center pa-t150' wx:if="{{cartList.length == 0}}">
+    <image src='/images/cartnone.png' style='width:220rpx;height:220rpx'></image>
+    <view class='text-center fo-g ma-t10'>购物车还是空的哦~</view>
+  </view>
+
   <!-- 失效页面 -->
   <view class='fail-list' wx:if="{{cartInvalid.length > 0}}">
     <view class='title-bar flex'>

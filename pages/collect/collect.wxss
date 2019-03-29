@@ -13,3 +13,10 @@
 .moneyNum{font-size:32rpx;}
 .del{font-size:35rpx !important;color:#CCCCCC;}
 /* .on{color:#999999;} */
+.collect-none{
+  width: 280rpx;
+  height: 200rpx;
+}
+page{
+  background-color: #ffffff
+}
