@@ -103,21 +103,21 @@ page {
 }
 
 .scroll-product .item {
-  width: 300rpx;
-  height: 200rpx;
+  width: 250rpx;
+  height: 250rpx;
   margin-right: 28rpx;
   display: inline-block;
 }
 
 .scroll-product .item .img-box {
   width: 100%;
-  height: 300rpx;
+  height: 250rpx;
 }
 
 .scroll-product .item .img-box image {
   width: 100%;
-  height: 300rpx;
-  border-radius: 10rpx;
+  height: 250rpx;
+  border-radius: 5rpx;
 }
 
 .scroll-product .item .pro-info {
@@ -148,7 +148,7 @@ page {
 
 .new-pro-wrapper .item navigator {
   width: 100%;
-  padding: 36rpx 25rpx;
+  padding: 30rpx 0;
   border-bottom: 1px solid #eee;
   justify-content: space-between;
   box-sizing: border-box;
@@ -181,9 +181,10 @@ page {
 }
 
 .new-pro-wrapper .item .img-box image {
-  width: 195rpx;
+  width: 240rpx;
   height: 195rpx;
-  border-radius: 10rpx;
+  border-radius: 5rpx;
+  display: block
 }
 
 .new-pro-wrapper .item:nth-child(2) navigator {
@@ -309,7 +310,7 @@ page {
 
 .new-pro-wrapper2 .item navigator {
   width: 100%;
-  padding: 36rpx 0;
+  padding: 30rpx 0;
   border-bottom: 1px solid #eee;
   justify-content: space-between;
   box-sizing: border-box;
@@ -329,8 +330,8 @@ page {
   line-height: 46rpx;
   font-size: 20rpx;
   color: #fff;
-  background-image: linear-gradient(to right, #ff6248 0%, #e41f1f 100%);
-  border-radius: 30rpx 0 30rpx 0rpx;
+  background: linear-gradient(to right, #ff6633 0%, #ff6248 100%);
+  border-radius: 15rpx 0 15rpx 0rpx;
   margin-top: 18rpx;
 }
 
@@ -369,5 +370,5 @@ page {
 .new-pro-wrapper2 .item .img-box image {
   width: 188rpx;
   height: 188rpx;
-  border-radius: 10rpx;
+  border-radius: 5rpx;
 }
