@@ -3,7 +3,7 @@
   <swiper class="swiper-box" style="height:400rpx" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActivecolor}}">
     <block wx:for="{{imgUrls}}">
       <swiper-item>
-        <image bindtap='goUrl' data-url="{{item.url}}" src="{{item.pic}}" class="slide-image"/>
+        <image bindtap='goUrl' data-url="{{item.url}}" src="{{item.pic}}" mode='aspectFill' class="slide-image"/>
       </swiper-item>
     </block>
   </swiper>
