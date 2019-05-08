@@ -26,7 +26,7 @@
          
              <view class='productSort-list {{_num==1?"productSort-list2":""}}'>
                       <navigator url="/pages/product-con/index?id={{item.id}}" hover-class="none"    bindtap='details'>
-                           <image src='{{url}}{{item.image}}' class='list-images {{_num==1?"list-images2":""}}'></image>
+                           <image src='{{url}}{{item.image}}' mode='aspectFill' class='list-images {{_num==1?"list-images2":""}}'></image>
                       </navigator>
                  <view>
                       <view class='list-text {{_num==1?"list-text2":""}}'>{{item.store_name}}</view>

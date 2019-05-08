@@ -12,7 +12,7 @@
             <checkbox value="{{index}}" checked="{{item.checked}}" />
           </label>
         </view>
-        <view class='picture'><image src='{{url}}{{item.productInfo.image}}'></image></view>
+        <view class='picture'><image src='{{url}}{{item.productInfo.image}}' mode='aspectFill'></image></view>
         <view class='pro-info flex'>
           <view class='pro-title'>{{item.productInfo.store_name}}</view>
           <view class='pro-des' wx:if="{{item.productInfo.attrInfo}}">{{item.productInfo.attrInfo.suk}}</view>

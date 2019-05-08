@@ -2,7 +2,7 @@
   <swiper class="swiper-box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActivecolor}}">
     <block wx:for="{{storeInfo.slider_image}}">
       <swiper-item>
-        <image src="{{url}}{{item}}" class="slide-image"/>
+        <image src="{{url}}{{item}}" class="slide-image" mode='aspectFill'/>
       </swiper-item>
     </block>
   </swiper>
