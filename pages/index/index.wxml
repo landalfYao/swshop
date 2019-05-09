@@ -37,7 +37,7 @@
             <view class='img-box'><image src='{{url}}{{item.image}}'  mode='aspectFill'></image></view>
             <view class='pro-info'>
               <view class='pro-title'>{{item.store_name}}</view>
-              <view class='price-small'>￥{{item.price}}</view>
+              <view class='price-small bold'>￥{{item.price}}</view>
             </view>
           </navigator>  
         </view>
@@ -45,6 +45,36 @@
     </scroll-view>
   </view>
 </view>
+
+<view class='pa-30' wx:if="{{hotList.length > 0}}">
+  <view class='bg-ty  ra-20 pa-b30 shadow'>
+    <view class='title-bar pa-t30 ' style='height:auto' bindtap='torday'>
+      <image src='/images/newp.png' class='icon-40 ma-r20'></image>
+      <text>热卖单品</text>
+    </view>
+    <view class='scroll-product ma-t30' style='padding:0'>
+    <scroll-view class="scroll-view_x " scroll-x style="width: auto;overflow:hidden;">
+      <block wx:for="{{hotList}}">
+        <view class='item-new'>
+          <navigator hover-class="none" url="/pages/product-con/index?id={{item.id}}">
+            <view class='img-box'><image class='item-new-image' src='{{url}}{{item.image}}'  mode='aspectFill'></image></view>
+            <view class='pro-info text-center'>
+              <view class='pro-title ell'>{{item.store_name}}</view>
+              <view class='price-small ma-t10  fo-30 bold'>￥{{item.price}}</view>
+              <view class='buy-btn panel-center item-center'>
+                <image src='/images/carts.png' class='icon-30'></image>
+                <view class='fo-24 fo-w ma-l10'>购买</view>
+              </view>
+            </view>
+          </navigator>  
+        </view>
+      </block>  
+    </scroll-view>
+  </view>
+  </view>
+</view>
+
+<!-- 促销单品 -->
 <view class='today-new' wx:if="{{benefitList.length > 0}}">
   <view class='title-bar' bindtap='torday'>
     <view class='iconfont icon-shangxinfuwu'></view>
@@ -70,15 +100,15 @@
 </view>
 
 <!-- 热卖单品 -->
-<view class='new-product2' wx:if="{{hotList.length > 0}}">
+<view class='new-product2' wx:if="{{newList.length > 0}}">
   <view class='title-bar' bindtap='torday' >
     <image src='/images/hot.png' class='icon-40 ma-r20'></image>
-    <text>热卖单品</text>
+    <text>新品首发</text>
     
   </view>
   <view class='scroll-product2'>
     <scroll-view class="scroll-view_x" scroll-x style="width: auto;overflow:hidden;">
-      <block wx:for="{{hotList}}">
+      <block wx:for="{{newList}}">
         <view class='item'>
           <navigator hover-class="none" url="/pages/product-con/index?id={{item.id}}">
             <view class='img-box'><image src='{{url}}{{item.image}}' mode='aspectFill'></image></view>
@@ -93,26 +123,7 @@
     </scroll-view>
   </view>
 </view>
-<!-- 首发新品 -->
-<view class='today-new' wx:if="{{newList.length > 0}}">
-  <view class='title-bar' bindtap='torday'>
-    <image src='/images/newp.png' class='icon-40 ma-r20'></image>
-    <text>首发新品</text>
-  </view>
-  <view class='new-pro-wrapper'>
-    <block wx:for="{{newList}}">
-      <view class='item'>
-        <navigator class='flex' hover-class="none" url="/pages/product-con/index?id={{item.id}}">
-          <view class='text-box flex'>
-            <view class='title'>{{item.store_name}}</view>
-            <view class='price'><text>￥</text>{{item.price}}</view>
-          </view>
-          <view class='img-box'><image src='{{url}}{{item.image}}' mode='aspectFill'></image></view>
-        </navigator>
-      </view>
-    </block>
-  </view>
-</view>
+
 <block  wx:for="{{lovely}}" wx:if="{{index < 1}}">
   <view class='hot-banner'>
       <image src='{{url}}{{item.img}}'></image>

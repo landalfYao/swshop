@@ -1,5 +1,5 @@
 @import '/font/font.wxss';
-
+@import './common.wxss';
 /**app.wxss**/
 page{font-size: 28rpx; background-color: #f7f7f7; color: #333;}
 .flex{display: flex;}
