@@ -50,7 +50,7 @@
   <view class='bg-ty  ra-20 pa-b30 shadow'>
     <view class='title-bar pa-t30 ' style='height:auto' bindtap='torday'>
       <image src='/images/newp.png' class='icon-40 ma-r20'></image>
-      <text>热卖单品</text>
+      <text>火爆单品</text>
     </view>
     <view class='scroll-product ma-t30' style='padding:0'>
     <scroll-view class="scroll-view_x " scroll-x style="width: auto;overflow:hidden;">

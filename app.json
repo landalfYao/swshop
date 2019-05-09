@@ -41,7 +41,8 @@
     "pages/unshop/unshop",
     "pages/main/main",
     "pages/collect/collect",
-    "pages/promotion-card/promotion-card"
+    "pages/promotion-card/promotion-card",
+    "pages/category/category"
   ],
   "window": {
     "backgroundTextStyle": "dark",
