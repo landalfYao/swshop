@@ -33,23 +33,29 @@ Page({
     that.setData({
       cartList: cartList
     })
-    wx.request({
-      url: app.globalData.url + '/routine/auth_api/set_buy_cart_num?uid=' + app.globalData.uid,
-      method: 'GET',
-      data:{
-        cartId: cartList[index].id,
-        cartNum: cart_num
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        wx.request({
+          url: app.globalData.url + '/routine/auth_api/set_buy_cart_num?uid=' + res.data,
+          method: 'GET',
+          data: {
+            cartId: cartList[index].id,
+            cartNum: cart_num
+          },
+          success: function (res) {
+            if (res.data.code == 400) {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 1000,
+              })
+            }
+          }
+        })
       },
-      success: function (res) {
-        if (res.data.code == 400) {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 1000,
-          })
-        }
-      }
     })
+    
   },
   onLoad: function (options) {
     app.setBarColor();
@@ -69,19 +75,25 @@ Page({
     var header = {
       'content-type': 'application/x-www-form-urlencoded',
     };
-    wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_cart_list?uid=' + app.globalData.uid,
-      method: 'POST',
-      header: header,
-      success: function (res) {
-        if(res.data.code == 200){
-           that.setData({
-             cartList: res.data.data.valid,
-             cartInvalid: res.data.data.invalid
-           })
-        }
-      }
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        wx.request({
+          url: app.globalData.url + '/routine/auth_api/get_cart_list?uid=' + res.data,
+          method: 'POST',
+          header: header,
+          success: function (res) {
+            if (res.data.code == 200) {
+              that.setData({
+                cartList: res.data.data.valid,
+                cartInvalid: res.data.data.invalid
+              })
+            }
+          }
+        })
+      },
     })
+    
   },
   //加
   numAddClick: function (event) {
@@ -201,26 +213,32 @@ Page({
     var header = {
       'content-type': 'application/x-www-form-urlencoded',
     };
-    wx.request({
-      url: app.globalData.url + '/routine/auth_api/change_cart_num?uid=' + app.globalData.uid,
-      method: 'GET',
-      data: {
-        cartNum: cartNum,
-        cartId: cartId
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        wx.request({
+          url: app.globalData.url + '/routine/auth_api/change_cart_num?uid=' + res.data,
+          method: 'GET',
+          data: {
+            cartNum: cartNum,
+            cartId: cartId
+          },
+          header: header,
+          success: function (res) {
+            if (res.data.code == 200) {
+
+            } else {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 2000
+              })
+            }
+          }
+        })
       },
-      header: header,
-      success: function (res) {
-        if (res.data.code == 200) {
-          
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      }
     })
+    
   },
   collectAll: function () {
     var array = this.data.cartList;
@@ -235,29 +253,35 @@ Page({
       var header = {
         'content-type': 'application/x-www-form-urlencoded',
       };
-      wx.request({
-        url: app.globalData.url + '/routine/auth_api/collect_product_all?uid=' + app.globalData.uid,
-        method: 'GET',
-        data: {
-          productId: productIds.join(',')
+      wx.getStorage({
+        key: 'uid',
+        success: function(res) {
+          wx.request({
+            url: app.globalData.url + '/routine/auth_api/collect_product_all?uid=' + res.data,
+            method: 'GET',
+            data: {
+              productId: productIds.join(',')
+            },
+            header: header,
+            success: function (res) {
+              if (res.data.code == 200) {
+                wx.showToast({
+                  title: '收藏成功',
+                  icon: 'success',
+                  duration: 2000
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            }
+          })
         },
-        header: header,
-        success: function (res) {
-          if (res.data.code == 200) {
-            wx.showToast({
-              title: '收藏成功',
-              icon: 'success',
-              duration: 2000
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 2000
-            })
-          }
-        }
       })
+      
     }
     console.log(productIds);
   },
@@ -274,39 +298,45 @@ Page({
       var header = {
         'content-type': 'application/x-www-form-urlencoded',
       };
-      wx.request({
-        url: app.globalData.url + '/routine/auth_api/remove_cart?uid=' + app.globalData.uid,
-        method: 'GET',
-        data: {
-          ids: ids.join(',')
-        },
-        header: header,
-        success: function (res) {
-          if (res.data.code == 200) {
-            wx.showToast({
-              title: '删除成功',
-              icon: 'success',
-              duration: 2000
-            })
-            for (var i = 0; i < ids.length; i++) {
-              for (var j = 0; j < array.length; j++) {
-                if (ids[i] == array[j].id) {
-                  array.splice(j, 1);
+      wx.getStorage({
+        key: 'uid',
+        success: function(res) {
+          wx.request({
+            url: app.globalData.url + '/routine/auth_api/remove_cart?uid=' + res.data,
+            method: 'GET',
+            data: {
+              ids: ids.join(',')
+            },
+            header: header,
+            success: function (res) {
+              if (res.data.code == 200) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success',
+                  duration: 2000
+                })
+                for (var i = 0; i < ids.length; i++) {
+                  for (var j = 0; j < array.length; j++) {
+                    if (ids[i] == array[j].id) {
+                      array.splice(j, 1);
+                    }
+                  }
                 }
+                that.setData({
+                  cartList: array
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none',
+                  duration: 2000
+                })
               }
             }
-            that.setData({
-              cartList: array
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 2000
-            })
-          }
-        }
+          })
+        },
       })
+      
     }
   },
   cartDel:function(e){
@@ -315,38 +345,44 @@ Page({
       var header = {
         'content-type': 'application/x-www-form-urlencoded',
       };
-      wx.request({
-        url: app.globalData.url + '/routine/auth_api/remove_cart?uid=' + app.globalData.uid,
-        method: 'GET',
-        data: {
-          ids: e.currentTarget.dataset.id
+      wx.getStorage({
+        key: 'uid',
+        success: function(res) {
+          wx.request({
+            url: app.globalData.url + '/routine/auth_api/remove_cart?uid=' + res.data,
+            method: 'GET',
+            data: {
+              ids: e.currentTarget.dataset.id
+            },
+            header: header,
+            success: function (res) {
+              if (res.data.code == 200) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success',
+                  duration: 2000
+                })
+                var cartInvalid = that.data.cartInvalid;
+                for (var i = 0; i < cartInvalid.length; i++) {
+                  if (e.currentTarget.dataset.id == cartInvalid[i].id) {
+                    cartInvalid.splice(i, 1);
+                    that.setData({
+                      cartInvalid: cartInvalid
+                    })
+                  }
+                }
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            }
+          })
         },
-        header: header,
-        success: function (res) {
-           if(res.data.code == 200){
-             wx.showToast({
-               title: '删除成功',
-               icon: 'success',
-               duration: 2000
-             })
-             var cartInvalid = that.data.cartInvalid;
-             for (var i = 0; i < cartInvalid.length ; i++){
-               if (e.currentTarget.dataset.id == cartInvalid[i].id){
-                 cartInvalid.splice(i,1);
-                 that.setData({
-                   cartInvalid: cartInvalid
-                 })
-               }
-             }
-           }else{
-             wx.showToast({
-               title: res.data.msg,
-               icon: 'none',
-               duration: 2000
-             })
-           }
-        }
       })
+      
     }
   },
   /**

@@ -24,7 +24,7 @@ Page({
   express: function (orderid){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/express?uid='+app.globalData.uid +'&uni='+orderid,
+      url: app.globalData.url + '/routine/auth_api/express?uid=' + wx.getStorageSync("uid") +'&uni='+orderid,
       method: 'GET',
       success: function (res) {
         if(res.data.code==200){
@@ -66,7 +66,7 @@ Page({
     var id = e.target.dataset.id;
     console.log(id);
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/unique?uid=' + app.globalData.uid + '&productId=' + id,
+      url: app.globalData.url + '/routine/auth_api/unique?uid=' + wx.getStorageSync("uid") + '&productId=' + id,
       // data: { productId:id},
       method: 'GET',
       success: function (res) {

@@ -36,7 +36,7 @@ Page({
   getOrder:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_order?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_order?uid=' + wx.getStorageSync("uid"),
       data: { uni: that.data.orderId },
       method: 'get',
       success: function (res) {

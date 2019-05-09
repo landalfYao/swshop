@@ -24,7 +24,7 @@ Page({
   getList:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_integral_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_integral_list?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data:{
         first: that.data.first,
@@ -40,7 +40,7 @@ Page({
   getUserInfo:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/my?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       success: function (res) {
         that.setData({
@@ -96,7 +96,7 @@ Page({
     if (!first) first = 1;
     var startpage = limit * first;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_integral_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_integral_list?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         first: startpage,

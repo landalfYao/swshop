@@ -38,7 +38,7 @@ Page({
   money: function (header){
     var that = this;
   wx.request({
-    url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
+    url: app.globalData.url + '/routine/auth_api/my?uid=' + wx.getStorageSync("uid"),
     method: 'POST',
     header: header,
     success: function (res) {
@@ -57,7 +57,7 @@ Page({
   getCode:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_code?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_code?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       success: function (res) {
         if (res.data.code == 200) {
@@ -81,7 +81,7 @@ Page({
   spread: function (header){
   var that = this;
   wx.request({
-    url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + app.globalData.uid,
+    url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + wx.getStorageSync("uid"),
     method: 'POST',
     header: header,
     success: function (res) {
@@ -103,7 +103,7 @@ Page({
       first:0
     });
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_balance_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_balance_list?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data:{
         first: that.data.first,
@@ -164,7 +164,7 @@ Page({
     var firstS = first * limit;
     var mainArray = that.data.mainArray;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_balance_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_balance_list?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         first: firstS,

@@ -45,7 +45,7 @@ Page({
     var first = that.data.first;
     var startpage = limit * first;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_order_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_order_list?uid=' + wx.getStorageSync("uid"),
       data: { type: orderType, search: search, first: startpage, limit: limit },
       method: 'get',
       header: header,

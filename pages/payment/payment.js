@@ -21,7 +21,7 @@ Page({
   getUserInfo:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_info?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_info?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       success: function (res) {
         that.setData({
@@ -34,7 +34,7 @@ Page({
   submitSub:function(e){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         formId: e.detail.formId
@@ -50,7 +50,7 @@ Page({
       return false;
     }
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_wechat_recharge?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_wechat_recharge?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         price: e.detail.value.number
@@ -75,7 +75,7 @@ Page({
               });
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '/pages/main/main?now=' + that.data.now_money + '&uid=' + app.globalData.uid,
+                  url: '/pages/main/main?now=' + that.data.now_money + '&uid=' + wx.getStorageSync("uid"),
                 })
               }, 1200)
             },

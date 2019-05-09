@@ -19,7 +19,7 @@ Page({
   money: function (header) {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/my?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -38,13 +38,13 @@ Page({
   cash: function () {
     var that = this;
     wx.navigateTo({
-      url: '/pages/cash/cash?uid='+ app.globalData.uid,
+      url: '/pages/cash/cash?uid=' + wx.getStorageSync("uid"),
     })
   },
   Yesterday_commission: function (header) {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/yesterdayCommission?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/yesterdayCommission?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -63,7 +63,7 @@ Page({
   extract: function (header) {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/extractsum?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/extractsum?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {

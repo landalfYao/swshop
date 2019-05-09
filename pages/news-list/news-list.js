@@ -26,7 +26,7 @@ Page({
   getNoticeList:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_notice_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_notice_list?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data:{
         page: that.data.page,
@@ -48,7 +48,7 @@ Page({
       newsList.forEach(function (value, index, newsList){
         if (value.id == id && !value.is_see) {
           wx.request({
-            url: app.globalData.url + '/routine/auth_api/see_notice?uid=' + app.globalData.uid,
+            url: app.globalData.url + '/routine/auth_api/see_notice?uid=' + wx.getStorageSync("uid"),
             method: 'GET',
             data: {
               nid: id,
@@ -85,7 +85,7 @@ Page({
     if (!offset) offset = 1;
     var startpage = limit * offset;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_notice_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_notice_list?uid=' + wx.getStorageSync("uid"),
       data: { limit: limit, page: offset },
       method: 'GET',
       success: function (res) {

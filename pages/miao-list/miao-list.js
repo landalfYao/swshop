@@ -23,7 +23,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/seckill_index?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/seckill_index?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {

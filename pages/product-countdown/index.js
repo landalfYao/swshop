@@ -56,7 +56,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_cart_num?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_cart_num?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -82,7 +82,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/seckill_detail?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/seckill_detail?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       data:{
@@ -104,7 +104,7 @@ Page({
   parameterShow: function (e) {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         formId: e.detail.formId
@@ -112,7 +112,7 @@ Page({
       success: function (res) { }
     })
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/now_buy?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/now_buy?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         productId: that.data.SeckillList.product_id,
@@ -168,7 +168,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/uncollect_product?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/uncollect_product?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       data: {
@@ -188,7 +188,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/collect_product?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/collect_product?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       data: {

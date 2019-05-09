@@ -45,7 +45,7 @@ Page({
   getArticleBanner: function () {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_article_banner?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_article_banner?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       success: function (res) {
         that.setData({
@@ -57,7 +57,7 @@ Page({
   getArticleHot:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_article_hot?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_article_hot?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       success: function (res) {
         that.setData({
@@ -69,7 +69,7 @@ Page({
   getNewList:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_cid_article?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_cid_article?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         cid : 0,
@@ -118,7 +118,7 @@ Page({
     if (!offset) offset = 1;
     var startpage = limit * offset;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_cid_article?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_cid_article?uid=' + wx.getStorageSync("uid"),
       data: { cid:0,limit: limit, first: startpage },
       method: 'GET',
       success: function (res) {

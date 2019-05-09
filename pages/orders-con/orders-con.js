@@ -24,7 +24,7 @@ Page({
     var that = this;
     wx.showLoading({ title: "正在加载中……" });
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_order?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_order?uid=' + wx.getStorageSync("uid"),
       data: { uni: uni },
       method: 'get',
       header: header,
@@ -51,7 +51,7 @@ Page({
         console.log(res.tapIndex)
         if (res.tapIndex == 0) {//微信支付
           wx.request({
-            url: app.globalData.url + '/routine/auth_api/pay_order?uid=' + app.globalData.uid + '&uni=' + e.target.dataset.id + '&paytype=weixin',
+            url: app.globalData.url + '/routine/auth_api/pay_order?uid=' + wx.getStorageSync("uid") + '&uni=' + e.target.dataset.id + '&paytype=weixin',
             method: 'get',
             success: function (res) {
               var data = res.data.data;
@@ -72,7 +72,7 @@ Page({
                     })
                     setTimeout(function () {
                       wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面
-                        url: '/pages/orders-list/orders-list?uid=' + app.globalData.uid
+                        url: '/pages/orders-list/orders-list?uid=' + wx.getStorageSync("uid")
                         // url: '/pages/orders-con/orders-con?order_id=' + data.result.order_id
                       })
                     }, 1200)
@@ -103,7 +103,7 @@ Page({
           });
         } else {
           wx.request({
-            url: app.globalData.url + '/routine/auth_api/pay_order?uid=' + app.globalData.uid + '&uni=' + e.target.dataset.id + '&paytype=yue',
+            url: app.globalData.url + '/routine/auth_api/pay_order?uid=' + wx.getStorageSync("uid") + '&uni=' + e.target.dataset.id + '&paytype=yue',
             method: 'get',
             success: function (res) {
               var data = res.data.data;
@@ -115,7 +115,7 @@ Page({
                 })
                 setTimeout(function () {
                   wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
-                    url: '/pages/orders-list/orders-list?uid=' + app.globalData.uid
+                    url: '/pages/orders-list/orders-list?uid=' + wx.getStorageSync("uid")
                     // url: '/pages/orders-con/orders-con?order_id=' + data.result.orderId
                   })
                 }, 1200)
@@ -149,7 +149,7 @@ Page({
   getPay: function (e) {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/pay_order?uid=' + app.globalData.uid + '&uni=' + e.target.dataset.id,
+      url: app.globalData.url + '/routine/auth_api/pay_order?uid=' + wx.getStorageSync("uid")+ '&uni=' + e.target.dataset.id,
       method: 'get',
       success: function (res) {
         var data = res.data.data;
@@ -170,7 +170,7 @@ Page({
               })
               setTimeout(function () {
                 wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
-                  url: '/pages/orders-list/orders-list?uid=' + app.globalData.uid
+                  url: '/pages/orders-list/orders-list?uid=' + wx.getStorageSync("uid")
                 })
               }, 1200)
             },
@@ -182,7 +182,7 @@ Page({
               })
               setTimeout(function () {
                 wx.navigateTo({
-                  url: '/pages/orders-list/orders-list?uid=' + app.globalData.uid
+                  url: '/pages/orders-list/orders-list?uid=' + wx.getStorageSync("uid")
                 })
               }, 1200)
             },
@@ -196,7 +196,7 @@ Page({
                 })
                 setTimeout(function () {
                   wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
-                    url: '/pages/orders-list/orders-list?uid=' + app.globalData.uid
+                    url: '/pages/orders-list/orders-list?uid=' + wx.getStorageSync("uid")
                   })
                 }, 1200)
               }
@@ -243,7 +243,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.url + '/routine/auth_api/user_remove_order?uid=' + app.globalData.uid,
+            url: app.globalData.url + '/routine/auth_api/user_remove_order?uid=' + wx.getStorageSync("uid"),
             data: { uni: uni },
             method: 'get',
             header: header,
@@ -307,7 +307,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.url + '/routine/auth_api/user_take_order?uid=' + app.globalData.uid,
+            url: app.globalData.url + '/routine/auth_api/user_take_order?uid=' + wx.getStorageSync("uid"),
             data: { uni: uni },
             method: 'get',
             header: header,

@@ -38,7 +38,7 @@ Page({
     }
     wx.showLoading({ title: "正在加载中……" });
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_order_product?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_order_product?uid=' + wx.getStorageSync("uid"),
       data: { unique: unique},
       method: 'get',
       header: header,
@@ -109,7 +109,7 @@ Page({
         var len = tempFilePaths.length;
         for (var i = 0; i < len; i++) {
           wx.uploadFile({
-            url: app.globalData.url + '/routine/auth_api/upload?uid=' + app.globalData.uid,
+            url: app.globalData.url + '/routine/auth_api/upload?uid=' + wx.getStorageSync("uid"),
             filePath: tempFilePaths[i],
             name: 'pics',
             formData: {
@@ -177,7 +177,7 @@ Page({
     }
     wx.showLoading({ title: "正在发布评论……" });
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_comment_product?uid=' + app.globalData.uid+'&unique=' + unique,
+      url: app.globalData.url + '/routine/auth_api/user_comment_product?uid=' + wx.getStorageSync("uid")+'&unique=' + unique,
       data: {comment: comment, product_score: product_score, service_score: service_score, pics: pics},
       method: 'post',
       header: header,

@@ -35,7 +35,7 @@ Page({
     var productId = that.data.productId;
     var filter='all';
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + wx.getStorageSync("uid"),
       data: { productId: productId, filter: filter },
       method: 'GET',
       success: function (res) {
@@ -56,7 +56,7 @@ Page({
     var productId = that.data.productId;
     var filter = 'new';
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + wx.getStorageSync("uid"),
       data: { productId: productId, filter: filter },
       method: 'GET',
       success: function (res) {
@@ -77,7 +77,7 @@ Page({
     var productId = that.data.productId;
     var filter = 'pic';
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + wx.getStorageSync("uid"),
       data: { productId: productId, filter: filter },
       method: 'GET',
       success: function (res) {
@@ -108,7 +108,7 @@ Page({
     }
     var productId = that.data.productId;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/product_reply_list?uid=' + wx.getStorageSync("uid"),
       data: { productId: productId, filter: filter},
       method: 'GET',
       success: function (res) {

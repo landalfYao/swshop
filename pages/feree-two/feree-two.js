@@ -35,7 +35,7 @@ Page({
   getSpreadListTwo:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_spread_list_two?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_spread_list_two?uid=' + wx.getStorageSync("uid"),
       data: {
         two_uid: that.data.uid,
         first: that.data.first,
@@ -61,7 +61,7 @@ Page({
     var startpage = limit * first;
     var array = that.data.fereeArray;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_spread_list_two?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_spread_list_two?uid=' + wx.getStorageSync("uid"),
       data: {
         two_uid: that.data.uid,
         limit: limit, 

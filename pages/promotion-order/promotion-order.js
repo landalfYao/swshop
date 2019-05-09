@@ -33,7 +33,7 @@ Page({
   extension: function (header){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -113,7 +113,7 @@ Page({
    var icondui = that.data.icondui;
    var icondui2 = that.data.icondui2;
    wx.request({
-     url: app.globalData.url + '/routine/auth_api/subordinateOrderlist?uid=' + app.globalData.uid,
+     url: app.globalData.url + '/routine/auth_api/subordinateOrderlist?uid=' + wx.getStorageSync("uid"),
      data: { uid: icondui2, status: icondui},
      method: 'POST',
      header: header,
@@ -133,7 +133,7 @@ Page({
   orderlistmoney: function () {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/subordinateOrderlistmoney?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/subordinateOrderlistmoney?uid=' + wx.getStorageSync("uid"),
       data: { status: that.data.icondui},
       method: 'POST',
       success: function (res) {

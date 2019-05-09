@@ -52,15 +52,21 @@ Page({
         wxh.home(that, e);
     },
     goPhone: function () {
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_site_phone?uid=' + app.globalData.uid,
+      wx.getStorage({
+        key: 'uid',
+        success: function(res) {
+          wx.request({
+            url: app.globalData.url + '/routine/auth_api/get_site_phone?uid=' + res.data,
             method: 'GET',
             success: function (res) {
-                wx.makePhoneCall({
-                    phoneNumber: res.data.msg,
-                })
+              wx.makePhoneCall({
+                phoneNumber: res.data.msg,
+              })
             }
-        })
+          })
+        },
+      })
+        
     },
     setNumber:function(e){
         var that = this;
@@ -98,51 +104,57 @@ Page({
         var header = {
             'content-type': 'application/x-www-form-urlencoded',
         };
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/details?uid=' + app.globalData.uid,
-            method: 'POST',
-            data:{
-                id:that.data.id
-            },
-            header: header,
-            success: function (res) {
-                if(res.data.code == 200){
-                    var image = "productSelect.image";
-                    var store_name = "productSelect.store_name";
-                    var price = "productSelect.price";
-                    var unique = "productSelect.unique";
-                    var stock = "productSelect.stock";
-                    that.setData({
-                        storeInfo: res.data.data.storeInfo,
-                        storeKeyWord: res.data.data.storeInfo.keyword.split(","),
-                        similarity: res.data.data.similarity,
-                        productAttr: res.data.data.productAttr,
-                        productValue: res.data.data.productValue,
-                        reply: res.data.data.reply,
-                        replyCount: res.data.data.replyCount,
-                        description: res.data.data.storeInfo.description,
-                        collect:res.data.data.storeInfo.userCollect,
-                        [image]: res.data.data.storeInfo.image,
-                        [stock]: res.data.data.storeInfo.stock,
-                        [store_name]: res.data.data.storeInfo.store_name,
-                        [price]: res.data.data.storeInfo.price,
-                        [unique]: ''
-                    })
-                    that.downloadFilestoreImage();
-                    that.downloadFilePromotionCode();
-                    WxParse.wxParse('description', 'html', that.data.description, that, 0);
-                }else{
-                    wx.showToast({
-                        title: res.data.msg,
-                        icon: 'none',
-                        duration: 1000
-                    })
-                    setTimeout(function(){
-                        wx.navigateBack({});
-                    },1200)
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/details?uid=' + res.data,
+              method: 'POST',
+              data: {
+                id: that.data.id
+              },
+              header: header,
+              success: function (res) {
+                if (res.data.code == 200) {
+                  var image = "productSelect.image";
+                  var store_name = "productSelect.store_name";
+                  var price = "productSelect.price";
+                  var unique = "productSelect.unique";
+                  var stock = "productSelect.stock";
+                  that.setData({
+                    storeInfo: res.data.data.storeInfo,
+                    storeKeyWord: res.data.data.storeInfo.keyword.split(","),
+                    similarity: res.data.data.similarity,
+                    productAttr: res.data.data.productAttr,
+                    productValue: res.data.data.productValue,
+                    reply: res.data.data.reply,
+                    replyCount: res.data.data.replyCount,
+                    description: res.data.data.storeInfo.description,
+                    collect: res.data.data.storeInfo.userCollect,
+                    [image]: res.data.data.storeInfo.image,
+                    [stock]: res.data.data.storeInfo.stock,
+                    [store_name]: res.data.data.storeInfo.store_name,
+                    [price]: res.data.data.storeInfo.price,
+                    [unique]: ''
+                  })
+                  that.downloadFilestoreImage();
+                  that.downloadFilePromotionCode();
+                  WxParse.wxParse('description', 'html', that.data.description, that, 0);
+                } else {
+                  wx.showToast({
+                    title: res.data.msg,
+                    icon: 'none',
+                    duration: 1000
+                  })
+                  setTimeout(function () {
+                    wx.navigateBack({});
+                  }, 1200)
                 }
-            }
+              }
+            })
+          },
         })
+        
     },
     listenerActionSheet: function () {
         this.setData({
@@ -256,27 +268,33 @@ Page({
     //获取产品分销二维码
     downloadFilePromotionCode:function(){
         var that = this;
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/product_promotion_code?uid=' + app.globalData.uid,
-            method: 'GET',
-            data: { id: that.data.id, },
-            success: function (res) {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/product_promotion_code?uid=' + res.data,
+              method: 'GET',
+              data: { id: that.data.id, },
+              success: function (res) {
                 if (res.data.code == 200) {
-                    wx.downloadFile({
-                        url: that.setDomain(res.data.msg),
-                        success: function (res) {
-                            that.setData({
-                                PromotionCode: res.tempFilePath
-                            })
-                        }
-                    });
-                }else{
-                    that.setData({
-                        PromotionCode: ''
-                    })
+                  wx.downloadFile({
+                    url: that.setDomain(res.data.msg),
+                    success: function (res) {
+                      that.setData({
+                        PromotionCode: res.tempFilePath
+                      })
+                    }
+                  });
+                } else {
+                  that.setData({
+                    PromotionCode: ''
+                  })
                 }
-            }
-        });
+              }
+            });
+          },
+        })
+        
     },
     //生成海报
     goPoster:function(){
@@ -289,78 +307,84 @@ Page({
         const arr2 = ['/images/posterbackgd.png', that.data.storeImage, that.data.PromotionCode];
         console.log(arr2);
         if (arr2[2] == '') {
-            wx.request({
-                url: app.globalData.url + '/routine/auth_api/product_promotion_code?uid=' + app.globalData.uid,
+          wx.getStorage({
+            key: 'uid',
+            success: function(res) {
+              wx.request({
+                url: app.globalData.url + '/routine/auth_api/product_promotion_code?uid=' + res.data,
                 method: 'GET',
                 data: { id: that.data.id, },
                 success: function (res) {
-                    if (res.data.code == 200) {
-                        const msgPromotionCode = res.data.msg;
-                        const ctx = wx.createCanvasContext('myCanvas');
-                        ctx.clearRect(0, 0, 0, 0);
-                        wx.downloadFile({
-                            url: that.setDomain(msgPromotionCode),
-                            success: function (res) {
-                                arr2[2] = res.tempFilePath;
-                                wx.getImageInfo({
-                                    src: arr2[0],
-                                    success: function (res) {
-                                        const WIDTH = res.width;
-                                        const HEIGHT = res.height;
-                                        ctx.drawImage(arr2[0], 0, 0, WIDTH, HEIGHT);
-                                        ctx.drawImage(arr2[1], 0, 0, WIDTH, WIDTH);
-                                        ctx.save();
-                                        let r = 90;
-                                        let d = r * 2;
-                                        let cx = 40;
-                                        let cy = 990;
-                                        ctx.arc(cx + r, cy + r, r, 0, 2 * Math.PI);
-                                        ctx.clip();
-                                        ctx.drawImage(arr2[2], cx, cy, d, d);
-                                        ctx.restore();
-                                        const CONTENT_ROW_LENGTH = 40;
-                                        let [contentLeng, contentArray, contentRows] = that.textByteLength(that.data.storeInfo.store_name, CONTENT_ROW_LENGTH);
-                                        ctx.setTextAlign('center')
-                                        ctx.setFontSize(32);
-                                        let contentHh = 32 * 1.3;
-                                        for (let m = 0; m < contentArray.length; m++) {
-                                            ctx.fillText(contentArray[m], WIDTH / 2, 820 + contentHh * m);
-                                        }
-                                        ctx.setTextAlign('center')
-                                        ctx.setFontSize(48);
-                                        ctx.setFillStyle('red');
-                                        ctx.fillText('￥' + that.data.storeInfo.price, WIDTH / 2, 860 + contentHh);
-                                        ctx.draw(true, function () {
-                                            wx.canvasToTempFilePath({
-                                                canvasId: 'myCanvas',
-                                                fileType: 'png',
-                                                destWidth: WIDTH,
-                                                destHeight: HEIGHT,
-                                                success: function (res) {
-                                                    wx.hideLoading();
-                                                    that.setData({
-                                                        posterImage: res.tempFilePath,
-                                                        posterImageStatus: true,
-                                                        canvasStatus: false,
-                                                        actionSheetHidden: !that.data.actionSheetHidden
-                                                    })
-                                                }
-                                            })
-                                        });
-                                    },
-                                })
+                  if (res.data.code == 200) {
+                    const msgPromotionCode = res.data.msg;
+                    const ctx = wx.createCanvasContext('myCanvas');
+                    ctx.clearRect(0, 0, 0, 0);
+                    wx.downloadFile({
+                      url: that.setDomain(msgPromotionCode),
+                      success: function (res) {
+                        arr2[2] = res.tempFilePath;
+                        wx.getImageInfo({
+                          src: arr2[0],
+                          success: function (res) {
+                            const WIDTH = res.width;
+                            const HEIGHT = res.height;
+                            ctx.drawImage(arr2[0], 0, 0, WIDTH, HEIGHT);
+                            ctx.drawImage(arr2[1], 0, 0, WIDTH, WIDTH);
+                            ctx.save();
+                            let r = 90;
+                            let d = r * 2;
+                            let cx = 40;
+                            let cy = 990;
+                            ctx.arc(cx + r, cy + r, r, 0, 2 * Math.PI);
+                            ctx.clip();
+                            ctx.drawImage(arr2[2], cx, cy, d, d);
+                            ctx.restore();
+                            const CONTENT_ROW_LENGTH = 40;
+                            let [contentLeng, contentArray, contentRows] = that.textByteLength(that.data.storeInfo.store_name, CONTENT_ROW_LENGTH);
+                            ctx.setTextAlign('center')
+                            ctx.setFontSize(32);
+                            let contentHh = 32 * 1.3;
+                            for (let m = 0; m < contentArray.length; m++) {
+                              ctx.fillText(contentArray[m], WIDTH / 2, 820 + contentHh * m);
                             }
-                        });
-                    } else {
-                        wx.showToast({
-                            title: res.data.msg,
-                            icon: 'none',
-                            duration: 1500,
-                            mask: true,
+                            ctx.setTextAlign('center')
+                            ctx.setFontSize(48);
+                            ctx.setFillStyle('red');
+                            ctx.fillText('￥' + that.data.storeInfo.price, WIDTH / 2, 860 + contentHh);
+                            ctx.draw(true, function () {
+                              wx.canvasToTempFilePath({
+                                canvasId: 'myCanvas',
+                                fileType: 'png',
+                                destWidth: WIDTH,
+                                destHeight: HEIGHT,
+                                success: function (res) {
+                                  wx.hideLoading();
+                                  that.setData({
+                                    posterImage: res.tempFilePath,
+                                    posterImageStatus: true,
+                                    canvasStatus: false,
+                                    actionSheetHidden: !that.data.actionSheetHidden
+                                  })
+                                }
+                              })
+                            });
+                          },
                         })
-                    }
+                      }
+                    });
+                  } else {
+                    wx.showToast({
+                      title: res.data.msg,
+                      icon: 'none',
+                      duration: 1500,
+                      mask: true,
+                    })
+                  }
                 }
-            });
+              });
+            },
+          })
+            
         }else{
             const ctx = wx.createCanvasContext('myCanvas');
             ctx.clearRect(0, 0, 0, 0);
@@ -419,17 +443,23 @@ Page({
             itemList: ['发送给朋友', '生成海报'],
             success: function (res) {
                 if (res.tapIndex){
-                    wx.request({
-                        url: app.globalData.url + '/routine/auth_api/get_pages?uid=' + app.globalData.uid,
+                  wx.getStorage({
+                    key: 'uid',
+                    success: function(res) {
+                      wx.request({
+                        url: app.globalData.url + '/routine/auth_api/get_pages?uid=' + res.data,
                         method: 'GET',
                         data: {
-                            path: app.globalData.openPages,
-                            productId: that.data.id
+                          path: app.globalData.openPages,
+                          productId: that.data.id
                         },
                         success: function (res) {
-                            console.log(res);
+                          console.log(res);
                         }
-                    })
+                      })
+                    },
+                  })
+                    
                 }else{
                     that.onShareAppMessage();
                 }
@@ -445,35 +475,41 @@ Page({
             var header = {
                 'content-type': 'application/x-www-form-urlencoded',
             };
-            wx.request({
-                url: app.globalData.url + '/routine/auth_api/set_cart?uid=' + app.globalData.uid,
-                method: 'GET',
-                data: {
+            wx.getStorage({
+              key: 'uid',
+              success: function(res) {
+                wx.request({
+                  url: app.globalData.url + '/routine/auth_api/set_cart?uid=' + res.data,
+                  method: 'GET',
+                  data: {
                     productId: that.data.id,
                     cartNum: that.data.num,
                     uniqueId: that.data.productSelect.unique
-                },
-                header: header,
-                success: function (res) {
+                  },
+                  header: header,
+                  success: function (res) {
                     if (res.data.code == 200) {
-                        wx.showToast({
-                            title: '添加购物车成功',
-                            icon: 'success',
-                            duration: 2000
-                        })
-                        that.setData({
-                            prostatus: false
-                        })
-                        that.getCartCount();
+                      wx.showToast({
+                        title: '添加购物车成功',
+                        icon: 'success',
+                        duration: 2000
+                      })
+                      that.setData({
+                        prostatus: false
+                      })
+                      that.getCartCount();
                     } else {
-                        wx.showToast({
-                            title: res.data.msg,
-                            icon: 'none',
-                            duration: 2000
-                        })
+                      wx.showToast({
+                        title: res.data.msg,
+                        icon: 'none',
+                        duration: 2000
+                      })
                     }
-                }
+                  }
+                })
+              },
             })
+            
         } else {
             wxh.footan(that);
             that.setData({
@@ -487,29 +523,35 @@ Page({
             var header = {
                 'content-type': 'application/x-www-form-urlencoded',
             };
-            wx.request({
-                url: app.globalData.url + '/routine/auth_api/now_buy?uid=' + app.globalData.uid,
-                method: 'GET',
-                data: {
+            wx.getStorage({
+              key: 'uid',
+              success: function(res) {
+                wx.request({
+                  url: app.globalData.url + '/routine/auth_api/now_buy?uid=' + res.data,
+                  method: 'GET',
+                  data: {
                     productId: that.data.id,
                     cartNum: that.data.num,
                     uniqueId: that.data.productSelect.unique
-                },
-                header: header,
-                success: function (res) {
+                  },
+                  header: header,
+                  success: function (res) {
                     if (res.data.code == 200) {
-                        wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
-                            url: '/pages/order-confirm/order-confirm?id=' + res.data.data.cartId
-                        })
+                      wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
+                        url: '/pages/order-confirm/order-confirm?id=' + res.data.data.cartId
+                      })
                     } else {
-                        wx.showToast({
-                            title: res.data.msg,
-                            icon: 'none',
-                            duration: 2000
-                        })
+                      wx.showToast({
+                        title: res.data.msg,
+                        icon: 'none',
+                        duration: 2000
+                      })
                     }
-                }
+                  }
+                })
+              },
             })
+            
         } else {
             wxh.footan(that);
             that.setData({
@@ -645,14 +687,20 @@ Page({
         wxh.tapcolor(that, e);
     },
     subBuy:function(e){
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + app.globalData.uid,
+      wx.getStorage({
+        key: 'uid',
+        success: function(res) {
+          wx.request({
+            url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + res.data,
             method: 'GET',
             data: {
-                formId: e.detail.formId
+              formId: e.detail.formId
             },
-            success: function (res) {}
-        })
+            success: function (res) { }
+          })
+        },
+      })
+        
         var that = this;
         if (that.data.num > that.data.productSelect.stock){
             wx.showToast({
@@ -695,62 +743,74 @@ Page({
                 var header = {
                     'content-type': 'application/x-www-form-urlencoded',
                 };
-                wx.request({
-                    url: app.globalData.url + '/routine/auth_api/set_cart?uid=' + app.globalData.uid,
-                    method: 'GET',
-                    data: {
+                wx.getStorage({
+                  key: 'uid',
+                  success: function(res) {
+                    wx.request({
+                      url: app.globalData.url + '/routine/auth_api/set_cart?uid=' + res.data,
+                      method: 'GET',
+                      data: {
                         productId: that.data.id,
                         cartNum: that.data.num,
                         uniqueId: that.data.productSelect.unique
-                    },
-                    header: header,
-                    success: function (res) {
+                      },
+                      header: header,
+                      success: function (res) {
                         if (res.data.code == 200) {
-                            wx.showToast({
-                                title: '添加购物车成功',
-                                icon: 'success',
-                                duration: 2000
-                            })
-                            that.setData({
-                                prostatus: false
-                            })
-                            that.getCartCount();
+                          wx.showToast({
+                            title: '添加购物车成功',
+                            icon: 'success',
+                            duration: 2000
+                          })
+                          that.setData({
+                            prostatus: false
+                          })
+                          that.getCartCount();
                         } else {
-                            wx.showToast({
-                                title: res.data.msg,
-                                icon: 'none',
-                                duration: 2000
-                            })
+                          wx.showToast({
+                            title: res.data.msg,
+                            icon: 'none',
+                            duration: 2000
+                          })
                         }
-                    }
+                      }
+                    })
+                  },
                 })
+                
             } else if (that.data.status == 3){
                 var header = {
                     'content-type': 'application/x-www-form-urlencoded',
                 };
-                wx.request({
-                    url: app.globalData.url + '/routine/auth_api/now_buy?uid=' + app.globalData.uid,
-                    method: 'GET',
-                    data: {
+                wx.getStorage({
+                  key: 'uid',
+                  success: function(res) {
+                    wx.request({
+                      url: app.globalData.url + '/routine/auth_api/now_buy?uid=' + res.data,
+                      method: 'GET',
+                      data: {
                         productId: that.data.id,
                         cartNum: that.data.num,
                         uniqueId: that.data.productSelect.unique
-                    },
-                    header: header,
-                    success: function (res) {
+                      },
+                      header: header,
+                      success: function (res) {
                         if (res.data.code == 200) {
-                            wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
-                                url: '/pages/order-confirm/order-confirm?id=' + res.data.data.cartId
-                            })
+                          wx.navigateTo({ //跳转至指定页面并关闭其他打开的所有页面（这个最好用在返回至首页的的时候）
+                            url: '/pages/order-confirm/order-confirm?id=' + res.data.data.cartId
+                          })
                         } else {
-                            wx.showToast({
-                                title: res.data.msg,
-                                icon: 'none',
-                                duration: 2000
-                            })
+                          wx.showToast({
+                            title: res.data.msg,
+                            icon: 'none',
+                            duration: 2000
+                          })
                         }
-                    }
+                      }
+                    })
+                  },
                 })
+                
             }
         }
     },
@@ -759,16 +819,22 @@ Page({
         var header = {
             'content-type': 'application/x-www-form-urlencoded',
         };
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_cart_num?uid=' + app.globalData.uid,
-            method: 'POST',
-            header: header,
-            success: function (res) {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_cart_num?uid=' + res.data,
+              method: 'POST',
+              header: header,
+              success: function (res) {
                 that.setData({
-                    CartCount: res.data.data
+                  CartCount: res.data.data
                 })
-            }
+              }
+            })
+          },
         })
+        
     },
     setCollect:function(){
         if (this.data.collect) this.unCollectProduct();
@@ -779,48 +845,60 @@ Page({
         var header = {
             'content-type': 'application/x-www-form-urlencoded',
         };
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/uncollect_product?uid=' + app.globalData.uid,
-            method: 'POST',
-            header: header,
-            data: {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/uncollect_product?uid=' + res.data,
+              method: 'POST',
+              header: header,
+              data: {
                 productId: that.data.id
-            },
-            success: function (res) {
+              },
+              success: function (res) {
                 wx.showToast({
-                    title: '取消收藏成功',
-                    icon: 'success',
-                    duration: 1500,
+                  title: '取消收藏成功',
+                  icon: 'success',
+                  duration: 1500,
                 })
                 that.setData({
-                    collect: false,
+                  collect: false,
                 })
-            }
+              }
+            })
+          },
         })
+        
     },
     collectProduct:function(){
         var that = this;
         var header = {
             'content-type': 'application/x-www-form-urlencoded',
         };
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/collect_product?uid=' + app.globalData.uid,
-            method: 'POST',
-            header: header,
-            data:{
-                productId:that.data.id
-            },
-            success: function (res) {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/collect_product?uid=' +res.data,
+              method: 'POST',
+              header: header,
+              data: {
+                productId: that.data.id
+              },
+              success: function (res) {
                 wx.showToast({
-                    title: '收藏成功',
-                    icon: 'success',
-                    duration: 1500,
+                  title: '收藏成功',
+                  icon: 'success',
+                  duration: 1500,
                 })
                 that.setData({
-                    collect: true,
+                  collect: true,
                 })
-            }
+              }
+            })
+          },
         })
+        
     },
     getCar:function(){
         wx.switchTab({

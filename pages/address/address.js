@@ -33,7 +33,7 @@ Page({
              addressP.city = res.cityName;
              addressP.district = res.countyName;
              wx.request({
-               url: app.globalData.url + '/routine/auth_api/edit_user_address?uid=' + app.globalData.uid + '&openid=' + app.globalData.openid,
+               url: app.globalData.url + '/routine/auth_api/edit_user_address?uid=' + wx.getStorageSync("uid") + '&openid=' + app.globalData.openid,
                method: 'POST',
                data: {
                  address: addressP,
@@ -80,7 +80,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_address_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_address_list?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -139,7 +139,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/remove_user_address?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/remove_user_address?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       header: header,
       data:{
@@ -183,7 +183,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/set_user_default_address?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/set_user_default_address?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       header: header,
       data:{

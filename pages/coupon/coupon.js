@@ -27,7 +27,7 @@ Page({
     var flag = this.data._active;
     setTimeout(function(){
       wx.request({
-        url: app.globalData.url + '/routine/auth_api/get_use_coupons?uid=' + app.globalData.uid,
+        url: app.globalData.url + '/routine/auth_api/get_use_coupons?uid=' + wx.getStorageSync("uid"),
         data:{types:0},
         method: 'GET',
         header: header,
@@ -57,7 +57,7 @@ Page({
     };
      var $type=e.target.dataset.idx
      wx.request({
-       url: app.globalData.url + '/routine/auth_api/get_use_coupons?uid=' + app.globalData.uid,
+       url: app.globalData.url + '/routine/auth_api/get_use_coupons?uid=' + wx.getStorageSync("uid"),
        data: {types:$type},
        method: 'GET',
        header: header,

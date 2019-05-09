@@ -39,7 +39,7 @@ Page({
   getContent:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/visit?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/visit?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         id: that.data.newId,

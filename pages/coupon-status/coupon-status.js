@@ -56,7 +56,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       };
       wx.request({
-        url: app.globalData.url + '/routine/auth_api/user_get_coupon?uid=' + app.globalData.uid,
+        url: app.globalData.url + '/routine/auth_api/user_get_coupon?uid=' + wx.getStorageSync("uid"),
         method: 'POST',
         header: header,
         data: {
@@ -93,7 +93,7 @@ Page({
     var that = this;
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_use_coupon_order?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_use_coupon_order?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         totalPrice: that.data.totalPrice
@@ -115,7 +115,7 @@ Page({
     };
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_issue_coupon_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_issue_coupon_list?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       data: {

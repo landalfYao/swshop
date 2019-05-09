@@ -19,7 +19,7 @@ Page({
          'content-type': 'application/x-www-form-urlencoded',
        };
        wx.request({
-         url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + app.globalData.uid,
+         url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + wx.getStorageSync("uid"),
          method: 'GET',
          data: {
            first: that.data.first,
@@ -51,7 +51,7 @@ Page({
     var startpage = limit * first;
     var array = that.data.fereeArray;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_spread_list?uid=' + wx.getStorageSync("uid"),
       data: {
         limit: limit,
         first: startpage

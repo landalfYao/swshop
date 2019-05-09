@@ -18,7 +18,7 @@ Page({
       now_money: now
     });
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_balance_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_balance_list?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       success: function (res) {
         that.setData({

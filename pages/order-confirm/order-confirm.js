@@ -102,7 +102,7 @@ Page({
       })
     } else {
       wx.request({
-        url: app.globalData.url + '/routine/auth_api/create_order?uid=' + app.globalData.uid +'&key='+ that.data.orderKey,
+        url: app.globalData.url + '/routine/auth_api/create_order?uid=' + wx.getStorageSync("uid") +'&key='+ that.data.orderKey,
         method: 'POST',
         header: header,
         data: {
@@ -225,7 +225,7 @@ Page({
       var that = this;
       if (that.data.couponId){
         wx.request({
-          url: app.globalData.url + '/routine/auth_api/get_coupon_rope?uid=' + app.globalData.uid,
+          url: app.globalData.url + '/routine/auth_api/get_coupon_rope?uid=' + wx.getStorageSync("uid"),
           method: 'GET',
           data: {
             couponId: that.data.couponId
@@ -251,7 +251,7 @@ Page({
     var that = this;
       if (that.data.addressId){
         wx.request({
-          url: app.globalData.url + '/routine/auth_api/get_user_address?uid=' + app.globalData.uid,
+          url: app.globalData.url + '/routine/auth_api/get_user_address?uid=' + wx.getStorageSync("uid"),
           method: 'GET',
           data:{
             addressId: that.data.addressId
@@ -266,7 +266,7 @@ Page({
         })
       }else{
         wx.request({
-          url: app.globalData.url + '/routine/auth_api/user_default_address?uid=' + app.globalData.uid+ '&openid=' + app.globalData.openid,
+          url: app.globalData.url + '/routine/auth_api/user_default_address?uid=' + wx.getStorageSync("uid") + '&openid=' + wx.getStorageSync("openid"),
           method: 'GET',
           success: function (res) {
             if (res.data.code == 200) {
@@ -285,7 +285,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded'
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_address_list?uid=' + app.globalData.uid + '&openid=' + app.globalData.openid,
+      url: app.globalData.url + '/routine/auth_api/user_address_list?uid=' + wx.getStorageSync("uid") + '&openid=' + wx.getStorageSync("openid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -320,7 +320,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/confirm_order?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/confirm_order?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       data: {
         cartId: cartIdsStr

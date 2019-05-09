@@ -42,6 +42,8 @@ Page({
             success: function (res) {
               app.globalData.uid = res.data.data.uid;
               app.globalData.openid = res.data.data.routine_openid;
+              wx.setStorageSync('uid', res.data.data.uid)
+              wx.setStorageSync('openid', res.data.data.routine_openid)
               if (app.globalData.openPages != '' && app.globalData.openPages != undefined) {//跳转到指定页面
                 wx.navigateTo({
                   url: app.globalData.openPages

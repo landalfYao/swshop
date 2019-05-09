@@ -28,17 +28,23 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     var that = this;
-    wx.request({
-      url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
-      method: 'POST',
-      header: header,
-      success: function (res) {
-        that.setData({
-          userinfo: res.data.data,
-          orderStatusNum: res.data.data.orderStatusNum
-        })
-      }
-    });
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        wx.request({
+          url: app.globalData.url + '/routine/auth_api/my?uid=' + res.data,
+          method: 'POST',
+          header: header,
+          success: function (res) {
+            that.setData({
+              userinfo: res.data.data,
+              orderStatusNum: res.data.data.orderStatusNum
+            })
+          }
+        });
+      },
+    })
+    
   },
   goNotification:function(){
       wx.navigateTo({
@@ -50,23 +56,29 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     var that = this;
-    wx.request({
-      url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
-      method: 'POST',
-      header: header,
-      success: function (res) {
-        that.setData({
-          userinfo: res.data.data
-        })
-      }
-    });
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        wx.request({
+          url: app.globalData.url + '/routine/auth_api/my?uid=' + res.data,
+          method: 'POST',
+          header: header,
+          success: function (res) {
+            that.setData({
+              userinfo: res.data.data
+            })
+          }
+        });
+      },
+    })
+    
   },  
    /**
    * 生命周期函数--我的余额
    */
   money:function(){
     wx.navigateTo({
-      url: '/pages/main/main?now=' + this.data.userinfo.now_money + '&uid='+app.globalData.uid,
+      url: '/pages/main/main?now=' + this.data.userinfo.now_money + '&uid='+wx.getStorageSync("uid"),
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },
@@ -77,7 +89,7 @@ Page({
    */
   integral: function () {
     wx.navigateTo({
-      url: '/pages/integral-con/integral-con?inte=' + this.data.userinfo.integral + '&uid=' + app.globalData.uid,
+      url: '/pages/integral-con/integral-con?inte=' + this.data.userinfo.integral + '&uid=' + wx.getStorageSync("uid"),
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },

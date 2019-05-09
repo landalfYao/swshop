@@ -41,7 +41,7 @@ Page({
   getRefundReason:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_refund_reason?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_refund_reason?uid=' + wx.getStorageSync("uid"),
       method: 'get',
       success: function (res) {
         that.setData({
@@ -59,7 +59,7 @@ Page({
   getOrderContent:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_order?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_order?uid=' + wx.getStorageSync("uid"),
       data: { uni: that.data.orderId },
       method: 'get',
       success: function (res) {
@@ -92,7 +92,7 @@ Page({
         var len = tempFilePaths.length;
         for (var i = 0; i < len; i++) {
           wx.uploadFile({
-            url: app.globalData.url + '/routine/auth_api/upload?uid=' + app.globalData.uid,
+            url: app.globalData.url + '/routine/auth_api/upload?uid=' + wx.getStorageSync("uid"),
             filePath: tempFilePaths[i],
             name: 'refund',
             formData: {
@@ -151,7 +151,7 @@ Page({
   subRefund:function(e){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         formId: e.detail.formId
@@ -169,7 +169,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       };
       wx.request({
-        url: app.globalData.url + '/routine/auth_api/apply_order_refund?uid=' + app.globalData.uid + '&uni=' + that.data.orderId,
+        url: app.globalData.url + '/routine/auth_api/apply_order_refund?uid=' + wx.getStorageSync("uid") + '&uni=' + that.data.orderId,
         data: {
            text: that.data.array[that.data.index],
            refund_reason_wap_explain: e.detail.value.refund_reason_wap_explain,

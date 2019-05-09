@@ -24,7 +24,8 @@ Page({
     likeList:[],
     offset: 0,
     title: "玩命加载中...",
-    hidden: false
+    hidden: false,
+    onload:false
   },
   goUrl:function(e){
     if (e.currentTarget.dataset.url != '#'){
@@ -47,6 +48,7 @@ Page({
     if (options.spid){
       app.globalData.spid = options.spid
     }
+    
     app.setUserInfo();
     that.getIndexInfo();
   },
@@ -55,24 +57,36 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     var that = this;
-    wx.request({
-      url: app.globalData.url + '/routine/auth_api/index?uid=' + app.globalData.uid,
-      method: 'POST',
-      header: header,
-      success: function (res) {
-        wx.stopPullDownRefresh()
-        that.setData({
-          imgUrls: res.data.data.banner,
-          recommendList: res.data.data.best,//精品
-          newList: res.data.data.new,//首发新品
-          hotList: res.data.data.hot,//热卖单品
-          benefitList: res.data.data.benefit,//促销
-          lovely: res.data.data.lovely,//猜猜你喜欢上面广告位
-          menus: res.data.data.menus,//导航
-          likeList: res.data.data.like//猜猜喜欢
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        wx.showLoading({
+          title: '加载中',
+          mask:true
         })
-      }
+        wx.request({
+          url: app.globalData.url + '/routine/auth_api/index?uid=' + res.data,
+          method: 'POST',
+          header: header,
+          success: function (res) {
+            wx.stopPullDownRefresh()
+            wx.hideLoading()
+            that.setData({
+              onload:true,
+              imgUrls: res.data.data.banner,
+              recommendList: res.data.data.best,//精品
+              newList: res.data.data.new,//首发新品
+              hotList: res.data.data.hot,//热卖单品
+              benefitList: res.data.data.benefit,//促销
+              lovely: res.data.data.lovely,//猜猜你喜欢上面广告位
+              menus: res.data.data.menus,//导航
+              likeList: res.data.data.like//猜猜喜欢
+            })
+          }
+        })
+      },
     })
+    
   },
   onReachBottom: function (p) {
     var that = this;
@@ -119,7 +133,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    if (this.data.onload && this.data.likeList.length == 0){
+      app.setUserInfo();
+      this.getIndexInfo();
+    }
   },
 
 

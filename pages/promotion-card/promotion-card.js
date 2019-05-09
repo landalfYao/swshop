@@ -22,7 +22,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/my?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       header: header,
       success: function (res) {
@@ -47,7 +47,7 @@ Page({
     };
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_code?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_code?uid=' + wx.getStorageSync("uid"),
       method: 'get',
       header: header,
       success: function (res) {

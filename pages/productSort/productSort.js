@@ -89,22 +89,28 @@ Page({
                 hiddendown: true
             })
         }
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_pid_cate?uid=' + app.globalData.uid,
-            method: 'POST',
-            success: function (res) {
-                if (res.data.code==200){
-                    that.setData({
-                        sortyi:res.data.data,
-                    })
-                }else{
-                    that.setData({
-                        sortyi: []
-                    })
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_pid_cate?uid=' + res.data,
+              method: 'POST',
+              success: function (res) {
+                if (res.data.code == 200) {
+                  that.setData({
+                    sortyi: res.data.data,
+                  })
+                } else {
+                  that.setData({
+                    sortyi: []
+                  })
                 }
-            }
+              }
 
+            })
+          },
         })
+        
     },
     itemdown:function(e){
         var that = this;
@@ -116,34 +122,40 @@ Page({
         var width = 50+'%';
         animation.width(width).step();
         var id=e.target.dataset.idx;
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_id_cate?uid=' + app.globalData.uid,
-            data: { id: e.target.dataset.idx},
-            method: 'POST',
-            success: function (res) {
-                if (res.data.code==200){
-                    that.setData({
-                        currentTab: e.target.dataset.idx,
-                        animationData: animation.export()
-                    });
-                    that.setData({
-                        cid: e.target.dataset.idx,
-                        sorter: res.data.data,
-                    })
-                }else{
-                    that.setData({
-                        currentTab: 0,
-                        animationData: {}
-                    });
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_id_cate?uid=' + res.data,
+              data: { id: e.target.dataset.idx },
+              method: 'POST',
+              success: function (res) {
+                if (res.data.code == 200) {
+                  that.setData({
+                    currentTab: e.target.dataset.idx,
+                    animationData: animation.export()
+                  });
+                  that.setData({
+                    cid: e.target.dataset.idx,
+                    sorter: res.data.data,
+                  })
+                } else {
+                  that.setData({
+                    currentTab: 0,
+                    animationData: {}
+                  });
 
-                    that.setData({
-                        cid: 0,
-                        sorter: []
-                    })
+                  that.setData({
+                    cid: 0,
+                    sorter: []
+                  })
                 }
-            },
+              },
 
+            })
+          },
         })
+        
     },
     itemdowner:function(e){
         var that = this;
@@ -201,16 +213,22 @@ Page({
         var header = {
             'content-type': 'application/x-www-form-urlencoded',
         };
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_cart_num?uid=' + app.globalData.uid,
-            method: 'POST',
-            header: header,
-            success: function (res) {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_cart_num?uid=' + res.data,
+              method: 'POST',
+              header: header,
+              success: function (res) {
                 that.setData({
-                    CartCount: res.data.data
+                  CartCount: res.data.data
                 })
-            }
+              }
+            })
+          },
         })
+        
     },
     allproduct: function () {
         var that = this;
@@ -277,72 +295,84 @@ Page({
     },
     searchSubmit:function(e){
         var that = this;
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + app.globalData.uid,
-            method: 'GET',
-            data: {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_form_id?uid=' + res.data,
+              method: 'GET',
+              data: {
                 formId: e.detail.formId
-            },
-            success: function (res) { }
-        })
-        var $search = e.detail.value;
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/store?uid=' + app.globalData.uid,
-            data: {value: $search},
-            method: 'GET',
-            success: function (res){
-                if (res.data.code==200){
-                    that.setData({
-                        Arraylike: res.data.data
-                    })
-                }else{
-                    that.setData({
-                        Arraylike: []
-                    })
+              },
+              success: function (res) { }
+            })
+            var $search = e.detail.value;
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/store?uid=' + res.data,
+              data: { value: $search },
+              method: 'GET',
+              success: function (res) {
+                if (res.data.code == 200) {
+                  that.setData({
+                    Arraylike: res.data.data
+                  })
+                } else {
+                  that.setData({
+                    Arraylike: []
+                  })
                 }
-            }
+              }
 
+            })
+          },
         })
+        
+        
     },
     cart:function(e){
         var that = this;
         var id=e.target.dataset.id;
-        console.log(id);
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/details?uid='+app.globalData.uid,
-            data: {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/details?uid=' + app.globalData.uid,
+              data: {
                 id: id
-            },
-            method: 'POST',
-            success: function (res) {
+              },
+              method: 'POST',
+              success: function (res) {
                 var image = "productSelect.image";
                 var store_name = "productSelect.store_name";
                 var price = "productSelect.price";
                 var unique = "productSelect.unique";
                 var stock = "productSelect.stock";
                 console.log(res.data.data);
-                if(res.data.code==200){
-                    that.setData({
-                        productAttr: res.data.data.productAttr,
-                        productValue: res.data.data.productValue,
-                        productSelect: res.data.data.storeInfo,
-                        [image]: res.data.data.storeInfo.image,
-                        [stock]: res.data.data.storeInfo.stock,
-                        [store_name]: res.data.data.storeInfo.store_name,
-                        [price]: res.data.data.storeInfo.price,
-                        [unique]: '',
-                        productid: id
-                    })
-                    that.detail();
-                }else{
-                    that.setData({
-                        productid: ''
-                    })
-                    // that.prompts();
+                if (res.data.code == 200) {
+                  that.setData({
+                    productAttr: res.data.data.productAttr,
+                    productValue: res.data.data.productValue,
+                    productSelect: res.data.data.storeInfo,
+                    [image]: res.data.data.storeInfo.image,
+                    [stock]: res.data.data.storeInfo.stock,
+                    [store_name]: res.data.data.storeInfo.store_name,
+                    [price]: res.data.data.storeInfo.price,
+                    [unique]: '',
+                    productid: id
+                  })
+                  that.detail();
+                } else {
+                  that.setData({
+                    productid: ''
+                  })
+                  // that.prompts();
                 }
-            }
+              }
 
+            })
+          },
         })
+       
     },
     detail:function(){
         var that=this;
@@ -487,36 +517,42 @@ Page({
             var header = {
                 'content-type': 'application/x-www-form-urlencoded',
             };
-            wx.request({
-                url: app.globalData.url + '/routine/auth_api/set_cart?uid=' + app.globalData.uid,
-                method: 'GET',
-                data: {
+            wx.getStorage({
+              key: 'uid',
+              success: function(res) {
+                wx.request({
+                  url: app.globalData.url + '/routine/auth_api/set_cart?uid=' + res.data,
+                  method: 'GET',
+                  data: {
                     productId: that.data.productid,
                     cartNum: that.data.num,
                     uniqueId: that.data.productSelect.unique
-                },
-                header: header,
-                success: function (res) {
+                  },
+                  header: header,
+                  success: function (res) {
                     if (res.data.code == 200) {
-                        wx.showToast({
-                            title: '添加购物车成功',
-                            icon: 'success',
-                            duration: 2000
-                        })
-                        that.setData({
-                            show: false,
-                            prostatus: false
-                        })
-                        that.getCartCount();
+                      wx.showToast({
+                        title: '添加购物车成功',
+                        icon: 'success',
+                        duration: 2000
+                      })
+                      that.setData({
+                        show: false,
+                        prostatus: false
+                      })
+                      that.getCartCount();
                     } else {
-                        wx.showToast({
-                            title: res.data.msg,
-                            icon: 'none',
-                            duration: 2000
-                        })
+                      wx.showToast({
+                        title: res.data.msg,
+                        icon: 'none',
+                        duration: 2000
+                      })
                     }
-                }
+                  }
+                })
+              },
             })
+            
 
         }
     },
@@ -562,37 +598,48 @@ Page({
         var salesOrder = that.data.ficti;
         var offset = 0;
         var startpage = limit * offset;
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_product_list?uid=' + app.globalData.uid,
-            data: { sid: sid, cid: cid, priceOrder: priceOrder, salesOrder: salesOrder, news: news, first: startpage, limit: limit },
-            method: 'GET',
-            success: function (res) {
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.showLoading({
+              title: '加载中',
+              mask:true
+            })
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_product_list?uid=' + res.data,
+              data: { sid: sid, cid: cid, priceOrder: priceOrder, salesOrder: salesOrder, news: news, first: startpage, limit: limit },
+              method: 'GET',
+              success: function (res) {
+                wx.hideLoading()
                 if (res.data.code == 200) {
-                    var len = res.data.data.length;
-                    var ladding = [];
-                    for (var i in res.data.data) {
-                        ladding.push(res.data.data[i]);
-                    }
+                  var len = res.data.data.length;
+                  var ladding = [];
+                  for (var i in res.data.data) {
+                    ladding.push(res.data.data[i]);
+                  }
+                  that.setData({
+                    Arraylike: ladding,
+                    offset: offset + 1
+                  })
+                  if (len < limit) {
                     that.setData({
-                        Arraylike: ladding,
-                        offset: offset + 1
-                    })
-                    if (len < limit) {
-                        that.setData({
-                            title: "数据已经加载完成",
-                            hidden: true
-                        });
-                        return false;
-                    }
+                      title: "数据已经加载完成",
+                      hidden: true
+                    });
+                    return false;
+                  }
                 }
-            },
-            fail: function (res) {
+              },
+              fail: function (res) {
                 console.log('submit fail');
-            },
-            complete: function (res) {
+              },
+              complete: function (res) {
                 console.log('submit complete');
-            }
+              }
+            })
+          },
         })
+        
     },
     onReachBottom: function (p) {
         var that = this;
@@ -607,38 +654,44 @@ Page({
         var header = {
             'content-type': 'application/x-www-form-urlencoded',
         };
-        wx.request({
-            url: app.globalData.url + '/routine/auth_api/get_product_list?uid=' + app.globalData.uid,
-            data: { sid: sid, cid: cid, priceOrder: priceOrder, salesOrder: salesOrder, news: news,first: startpage ,limit: limit},
-            method: 'GET',
-            header: header,
-            success: function (res) {
-                if(res.data.code==200){
-                    // console.log(res);
-                    var len = res.data.data.length;
-                    var ladding = that.data.Arraylike;
-                    for (var i in res.data.data){
-                        ladding.push(res.data.data[i]);
-                    }
+        wx.getStorage({
+          key: 'uid',
+          success: function(res) {
+            wx.request({
+              url: app.globalData.url + '/routine/auth_api/get_product_list?uid=' + res.data,
+              data: { sid: sid, cid: cid, priceOrder: priceOrder, salesOrder: salesOrder, news: news, first: startpage, limit: limit },
+              method: 'GET',
+              header: header,
+              success: function (res) {
+                if (res.data.code == 200) {
+                  // console.log(res);
+                  var len = res.data.data.length;
+                  var ladding = that.data.Arraylike;
+                  for (var i in res.data.data) {
+                    ladding.push(res.data.data[i]);
+                  }
+                  that.setData({
+                    Arraylike: ladding,
+                    offset: offset + 1
+                  })
+                  if (len < limit) {
                     that.setData({
-                        Arraylike: ladding,
-                        offset: offset + 1
-                    })
-                    if (len < limit) {
-                        that.setData({
-                            title: "数据已经加载完成",
-                            hidden: true
-                        });
-                        return false;
-                    }
+                      title: "数据已经加载完成",
+                      hidden: true
+                    });
+                    return false;
+                  }
                 }
-            },
-            fail: function (res) {
+              },
+              fail: function (res) {
                 console.log('submit fail');
-            },
-            complete: function (res) {
+              },
+              complete: function (res) {
                 console.log('submit complete');
-            }
+              }
+            })
+          },
         })
+        
     },
 })

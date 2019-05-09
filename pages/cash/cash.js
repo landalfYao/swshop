@@ -21,7 +21,7 @@ Page({
     this.getUserInfo();
     this.getUserExtractBank();
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/minmoney?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/minmoney?uid=' + wx.getStorageSync("uid"),
       method: 'POST',
       success: function (res) {
         that.setData({
@@ -33,7 +33,7 @@ Page({
   getUserInfo:function(){
       var that = this;
       wx.request({
-        url: app.globalData.url + '/routine/auth_api/my?uid=' + app.globalData.uid,
+        url: app.globalData.url + '/routine/auth_api/my?uid=' + wx.getStorageSync("uid"),
         method: 'POST',
         success: function (res) {
           that.setData({
@@ -45,7 +45,7 @@ Page({
   getUserExtractBank:function () {
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_extract_bank?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_extract_bank?uid=' + wx.getStorageSync("uid"),
       method: 'get',
       success: function (res) {
         that.setData({
@@ -152,7 +152,7 @@ Page({
       }
     }
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_extract?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_extract?uid=' + wx.getStorageSync("uid"),
       data: { lists: list},
       method: 'POST',
       header: header,

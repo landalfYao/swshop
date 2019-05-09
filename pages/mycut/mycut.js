@@ -47,7 +47,7 @@ Page({
   getUserBargainAll:function(){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_bargain_all?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_bargain_all?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       success: function (res) {
         console.log(res);
@@ -128,7 +128,7 @@ Page({
   setBargainStatusError: function (endTimeList,bargainUserTableId){
     var that = this;
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/set_user_bargain_status?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/set_user_bargain_status?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data:{
         bargainUserTableId: bargainUserTableId

@@ -21,7 +21,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     }
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_collect_product?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_collect_product?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       header: header,
       success: function (res) {
@@ -54,7 +54,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded',
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_collect_product_del?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_collect_product_del?uid=' + wx.getStorageSync("uid"),
       data:{pid:id},
       method: 'GET',
       header: header,

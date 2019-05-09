@@ -30,7 +30,7 @@ Page({
     var that = this;
     
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/get_user_address?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/get_user_address?uid=' + wx.getStorageSync("uid"),
       method: 'GET',
       data: {
         addressId : that.data.id
@@ -100,7 +100,7 @@ Page({
       addressP.district = this.data.region[2];
      
       wx.request({
-        url: app.globalData.url + '/routine/auth_api/edit_user_address?uid=' + app.globalData.uid,
+        url: app.globalData.url + '/routine/auth_api/edit_user_address?uid=' + wx.getStorageSync("uid"),
         method: 'POST',
         data: {
           address: addressP,
