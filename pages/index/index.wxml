@@ -12,7 +12,7 @@
 <view class='nav flex' wx:if="{{menus.length > 0}}">
   <block wx:for="{{menus}}">
     <view class='nav-item'>
-      <navigator class='flex' hover-class="none" url='{{item.url}}' wx:if="{{item.show == '是'}}" open-type='switchTab'>
+      <navigator class='flex' hover-class="none" url='{{item.name=="滋补养生"?"/pages/productSort/productSort?cateId=7&total=滋补养生/全部":item.url}}' wx:if="{{item.show == '是'}}" open-type='{{item.name=="滋补养生"?"navigateTo":"switchTab"}}'>
         <image src='{{item.pic}}' mode='aspectFill'></image>
         <view class='nav-title'>{{item.name}}</view>
       </navigator>

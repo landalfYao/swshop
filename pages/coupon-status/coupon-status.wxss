@@ -21,7 +21,7 @@
 }
 
 .coupon-ul {
-  margin: 10rpx 36rpx 0 36rpx;
+ padding: 30rpx
 }
 
 .coupon-li {
@@ -47,7 +47,7 @@
 }
 
 .coupon-term {
-  margin-top: 38rpx;
+  margin-top: 0rpx;
   font-size: 30rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,7 +64,7 @@
 
 .coupon-money {
   font-size: 46rpx;
-  margin-top: 29rpx;
+  margin-top: 10rpx;
 }
 
 .coupon-num {
@@ -72,18 +72,19 @@
 }
 
 .coupon-text {
-  padding-right: 23rpx;
+  padding-right: 10rpx;
 }
-
+.coupon-text2{
+  width: 200rpx
+}
 .coupon-but {
-  font-size: 18rpx;
+  font-size: 22rpx;
   border: 1rpx solid #ffb9a8;
-  border-radius: 20rpx;
+  border-radius: 50rpx;
   text-align: center;
-  width: 112rpx;
-  height: 37rpx;
-  line-height: 36rpx;
-  margin: 7rpx auto 0 auto;
+  width: 130rpx;
+  height: 50rpx;
+  line-height: 50rpx;
 }
 
 .coupon-new {

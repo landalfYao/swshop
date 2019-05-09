@@ -1,1 +1,19 @@
-/* pages/category/category.wxss */
+.pic{
+  width: 690rpx;
+  height: 300rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.1)
+}
+page{
+  background: #ffffff
+}
+.pic-text{
+  width: 350rpx;
+  background-color: rgba(0, 0, 0, 0.65);
+  min-height: 100rpx;
+  padding: 20rpx;
+  border-radius: 10rpx
+}

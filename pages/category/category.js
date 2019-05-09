@@ -1,4 +1,5 @@
-// pages/category/category.js
+let app=getApp()
+let _this;
 Page({
 
   /**
@@ -12,9 +13,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    _this = this
+    this.getCategory()
   },
+  getCategory(){
+    wx.request({
+      url: app.globalData.url + '/routine/auth_api/get_pid_cate?uid=' + wx.getStorageSync("uid"),
+      method: 'POST',
+      success: function (res) {
+        if (res.data.code == 200) {
+          _this.setData({
+            sortyi: res.data.data,
+          })
+        } else {
+          _this.setData({
+            sortyi: []
+          })
+        }
+      }
 
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

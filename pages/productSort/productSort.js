@@ -50,6 +50,13 @@ Page({
         app.setUserInfo();
         var that = this;
         that.getCartCount();
+        if(e.cateId){
+          this.setData({
+            cid: e.cateId,
+            sid: 0,
+            total:e.total
+          })
+        }
         that.getProductList();
     },
     goCart:function(){
