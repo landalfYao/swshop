@@ -148,7 +148,10 @@
       </view>
     </block>  
   </view>
-  <view class='loading flex'><icon class='iconfont icon-jiazaizhong loadingpic' hidden='{{hidden}}'></icon>{{title}}</view>
+  <navigator class='pa-30 panel-center item-center bg-g' url='/pages/productSort/productSort'>
+    <view class='fo-30' >查看全部</view>
+  </navigator>
+  <!-- <view class='loading flex'><icon class='iconfont icon-jiazaizhong loadingpic' hidden='{{hidden}}'></icon>{{title}}</view> -->
 </view>
 
 
