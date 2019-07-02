@@ -41,7 +41,7 @@
       </block>
     </view>
     <view class='count-wrapper flex'>
-      <view>原价:￥{{storeInfo.ot_price}}</view>
+      <view class="th-line">原价:￥{{storeInfo.ot_price}}</view>
       <view>库存:{{storeInfo.stock}}{{storeInfo.unit_name}}</view>
       <view>销量:{{storeInfo.ficti+storeInfo.sales}}{{storeInfo.unit_name}}</view>
     </view>

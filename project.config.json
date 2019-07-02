@@ -12,6 +12,8 @@
 	"libVersion": "1.9.94",
 	"appid": "wx22bc8cbb12140eba",
 	"projectname": "crmebN",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

@@ -17,7 +17,10 @@ Page({
   onLoad: function (options) {
     var that = this;
     app.setBarColor();
-    if (options.scene) app.globalData.spid = options.scene;
+    if (options.scene){
+      app.globalData.spid = options.scene;
+      app.globalData.sid = options.scene
+    } 
     that.setSetting();
   },
 

@@ -48,6 +48,11 @@ Page({
     if (options.spid){
       app.globalData.spid = options.spid
     }
+    // if (app.globalData.spid){
+    //   wx.navigateTo({
+    //     url: '/pages/product-con/index?id=' + app.globalData.spid,
+    //   })
+    // }
     
     app.setUserInfo();
     that.getIndexInfo();
